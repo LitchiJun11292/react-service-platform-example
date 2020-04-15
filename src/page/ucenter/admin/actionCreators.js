@@ -1,8 +1,7 @@
 import {
     INIT_TABLES_ROUTELIST,
     RESET_DATA,
-    RESET_DATA_DIS,
-    CLEAR_DATA
+    RESET_DATA_DIS
 } from './constants';
 
 // tabs页路由列表

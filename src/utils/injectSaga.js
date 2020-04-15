@@ -5,7 +5,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {ReactReduxContext} from 'react-redux';
-import store from "../store/configureStore";
 
 export default ({key, saga}) => (WrappedComponent) => {
     class SagaInject extends React.Component {
@@ -28,7 +27,7 @@ export default ({key, saga}) => (WrappedComponent) => {
         componentWillUnmount () {
             const {store} = this.props;
             store.ejectSaga(key);
-                        
+
         }
 
         render () {

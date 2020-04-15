@@ -1,9 +1,11 @@
+/**
+ * saga
+ */
 import Axios from "./../utils/request";
 import {call, put, takeLatest} from "redux-saga/effects";
 import base from './../utils/base';
 import {message} from "antd";
 import store from './configureStore';
-import createReducer from './reducers';
 import {
     setUserToken,
     initUserInfos,
@@ -11,15 +13,8 @@ import {
 } from "./actionCreators";
 import {
     SET_USER_LOGIN,
-    SET_SIGN_OUT, INIT_USER_INFOS
+    SET_SIGN_OUT
 } from "./constants";
-
-// import re from '@page/ucenter/admin/reducer';
-
-
-/**
- * saga
- */
 
 export default function* appSaga () {
     // yield ...

@@ -1,6 +1,7 @@
 import {
     SET_USER_LOGIN,
     SET_USER_TOKEN,
+    SET_USER_TARGET,
     INIT_USER_INFOS,
     EXIT_DATA_RESET,
     SET_SIGN_OUT
@@ -14,6 +15,12 @@ export const setUserLogin = () => ({
 // 初始化token
 export const setUserToken = (data) => ({
     type: SET_USER_TOKEN,
+    data
+});
+
+// 初始化用户角色
+export const setUserTarget = (data) => ({
+    type: SET_USER_TARGET,
     data
 });
 

@@ -48,7 +48,7 @@ class NavLerft extends React.Component {
     };
 
     componentDidMount () {
-        const menuTreeNode = this.renderMenu(MenConfig['college']);
+        const menuTreeNode = this.renderMenu(MenConfig[this.props.target]);
         let openKeys = this.props.location.pathname.split('/');
         tabsRoute[0].closable = false;
         this.props.initTablesRoutelist(tabsRoute[0]);
@@ -110,9 +110,13 @@ class NavLerft extends React.Component {
     }
 }
 
+const mapState = (state) => ({
+    target: state.users.target
+});
+
 const mapDispatch = (dispatch) => ({
     initTablesRoutelist (data) {
         dispatch(initTablesRoutelist(data));
     }
 });
-export default connect(null, mapDispatch)(withRouter(NavLerft));
+export default connect(mapState, mapDispatch)(withRouter(NavLerft));
