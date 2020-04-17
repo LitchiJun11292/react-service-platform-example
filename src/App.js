@@ -28,13 +28,11 @@ class App extends React.Component {
     }
 
     beforeunloadFn = () => {
-        let states = {};
         for (let key in this.props.states) {
             if (key !== 'users') {
-                states[key] = this.props.states[key];
+                sessionStorage.setItem(key, JSON.stringify(this.props.states[key]))
             }
         }
-        sessionStorage.setItem('states', JSON.stringify(states))
     }
 }
 

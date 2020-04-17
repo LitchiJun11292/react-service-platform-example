@@ -46,6 +46,10 @@ let menuConfig = {
                 {
                     title: "投稿管理",
                     url: "/ucenter/Inform/contribute"
+                },
+                {
+                    title: "问卷管理",
+                    url: "/ucenter/Inform/questionnaire"
                 }
             ]
         },

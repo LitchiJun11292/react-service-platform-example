@@ -7,6 +7,7 @@ import {initTablesRoutelist} from "./../../page/ucenter/admin/actionCreators";
 import {
     LoginOutlined
 } from '@ant-design/icons';
+import tabsRoute from "../../utils/tabsRoute";
 
 const {TabPane} = Tabs;
 
@@ -47,6 +48,29 @@ class NavTabs extends React.Component {
         this.props.initTablesRoutelist(this.props.tableRouteList, 0);
         this.props.history.push(this.props.tableRouteList[0].url);
     };
+
+    // 地址打开对应的tab页
+    handleInitTableList = (route) => {
+        let filter = tabsRoute.filter(item => (item.url === route.pathname));
+        if (filter.length > 0) {
+            let obj = filter[0];
+            if (obj.url !== tabsRoute[0].url) {
+                this.props.initTablesRoutelist({
+                    title: obj.title,
+                    url: obj.url
+                });
+            }
+        }
+    };
+
+    componentDidMount () {
+        tabsRoute[0].closable = false;
+        this.props.initTablesRoutelist(tabsRoute[0]);
+        this.handleInitTableList(this.props.location);
+        this.props.history.listen((route) => {
+            this.handleInitTableList(route);
+        });
+    }
 
     render () {
         const {tableRouteList} = this.props;

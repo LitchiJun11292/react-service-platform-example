@@ -1,7 +1,6 @@
 import {
     INIT_TABLES_ROUTELIST,
-    RESET_DATA,
-    RESET_DATA_DIS
+    RESET_DATA
 } from './constants';
 
 // tabs页路由列表
@@ -10,12 +9,6 @@ export const initTablesRoutelist = (data, opa) => ({
     data,
     opa
 });
-
-// 刷新ucenter数据重置派发
-export const resetDataDis = (data) => ({
-    type: RESET_DATA_DIS
-});
-
 
 // 刷新ucenter数据重置
 export const resetData = (data) => ({

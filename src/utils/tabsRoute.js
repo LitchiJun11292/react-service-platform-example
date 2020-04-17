@@ -5,6 +5,7 @@ import CRSPSite from "../page/ucenter/organization/CRSPSite";
 import RegOrRcd from "../page/ucenter/regOrRcdCenter/regOrRcd";
 import RegOrRcdPro from "../page/ucenter/regOrRcdCenter/regOrRcdPro";
 import Contribute from "../page/ucenter/InfoManage/contribute";
+import Questionnaire from "../page/ucenter/InfoManage/questionnaire";
 import UserManage from "../page/ucenter/sysManage/userManage";
 import RoleManage from "../page/ucenter/sysManage/roleManage";
 
@@ -57,6 +58,13 @@ export default [
         name: 'Contribute',
         component: Contribute
     },
+    {
+        title: "问卷管理",
+        url: "/ucenter/Inform/questionnaire",
+        name: 'Questionnaire',
+        component: Questionnaire
+    },
+    /*** 系统管理 ***/
     {
         title: "用户管理",
         url: "/ucenter/system/userManagement",

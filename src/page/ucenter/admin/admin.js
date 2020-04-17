@@ -13,7 +13,7 @@ import UcenterHeader from '../../../components/Header/ucenterIndex';
 import NavTabs from '../../../components/NavTabs/index';
 import logoTitle from '../../../statics/images/logo_title01.png';
 import logo from '../../../statics/images/logo.png';
-import {resetDataDis} from './actionCreators';
+import {resetData} from './actionCreators';
 
 
 const {Header, Sider, Content} = Layout;
@@ -30,11 +30,11 @@ class Ucenter extends React.Component {
         });
     };
 
-    componentDidMount() {
+    componentDidMount () {
         this.props.resetDatesdis();
     }
 
-    render() {
+    render () {
         const {collapsed} = this.state;
         return (
             <Layout className="ucenter_layout">
@@ -61,9 +61,11 @@ class Ucenter extends React.Component {
     }
 }
 
-const mapDispatchToProps = dispatch => ({
-    resetDatesdis() {
-        dispatch(resetDataDis());
+const mapDispatchToProps = (dispatch) => ({
+    resetDatesdis () {
+        const states = JSON.parse(sessionStorage.getItem('ucenter'));
+        sessionStorage.removeItem("ucenter");
+        states && dispatch(resetData(states));
     }
 });
 

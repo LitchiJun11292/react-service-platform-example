@@ -3,13 +3,9 @@ import {NavLink, withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {Menu} from 'antd';
 import MenConfig from './../../utils/menuConfig';
-import tabsRoute from './../../utils/tabsRoute';
 import {
     MailOutlined,
 } from '@ant-design/icons';
-import {
-    initTablesRoutelist
-} from "./../../page/ucenter/admin/actionCreators";
 
 const {SubMenu} = Menu;
 
@@ -27,20 +23,8 @@ class NavLerft extends React.Component {
         });
     };
 
-    // 地址打开对应的tab页
+    // 打开对应的SubMenu
     handleInitTableList = (route) => {
-        let filter = tabsRoute.filter(item => (item.url === route.pathname));
-        if (filter.length > 0) {
-            let obj = filter[0];
-            if (obj.url !== tabsRoute[0].url) {
-                this.props.initTablesRoutelist({
-                    title: obj.title,
-                    url: obj.url
-                });
-            }
-        }
-
-        // 打开对应的SubMenu
         let openKeys = route.pathname.split('/');
         this.setState({
             openKeys: [openKeys[2]]
@@ -50,8 +34,6 @@ class NavLerft extends React.Component {
     componentDidMount () {
         const menuTreeNode = this.renderMenu(MenConfig[this.props.target]);
         let openKeys = this.props.location.pathname.split('/');
-        tabsRoute[0].closable = false;
-        this.props.initTablesRoutelist(tabsRoute[0]);
         this.setState({
             menuTreeNode,
             openKeys: [openKeys[2]]
@@ -114,9 +96,4 @@ const mapState = (state) => ({
     target: state.users.target
 });
 
-const mapDispatch = (dispatch) => ({
-    initTablesRoutelist (data) {
-        dispatch(initTablesRoutelist(data));
-    }
-});
-export default connect(mapState, mapDispatch)(withRouter(NavLerft));
+export default connect(mapState, null)(withRouter(NavLerft));
