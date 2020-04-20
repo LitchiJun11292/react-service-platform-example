@@ -1,8 +1,9 @@
 import React from 'react';
 import {Button} from 'antd';
 import BaseForm from './../../../../components/BaseForm';
+import './index.scss';
 
-class Contribute extends React.Component {
+class Questionnaire extends React.Component {
 
     state = {
         formDate: {
@@ -58,7 +59,7 @@ class Contribute extends React.Component {
             <div>
                 <BaseForm formList={this.formList}
                           formDate={this.state.formDate}/>
-                <div className="">
+                <div className="questionnaire_add">
                     <Button type="primary">新增问卷</Button>
                 </div>
             </div>
@@ -66,4 +67,4 @@ class Contribute extends React.Component {
     }
 }
 
-export default Contribute;
+export default Questionnaire;
