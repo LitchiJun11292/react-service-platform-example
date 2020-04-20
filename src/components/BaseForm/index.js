@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {NavLink, withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {Form, Input, Select, Button, DatePicker} from 'antd';
@@ -61,7 +61,7 @@ class BaseForm extends React.Component {
     render () {
         const onFinish = values => {
             console.log('Success:', values);
-            console.log(values['start_time'].format());
+            console.log(values['start_time'] && values['start_time'].format());
         };
 
         const onFinishFailed = errorInfo => {

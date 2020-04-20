@@ -1,0 +1,33 @@
+.questionnaire_add {
+  margin-top: 10px;
+  padding-bottom: 10px;
+}
+
+// 上线模态框
+.online_modal {
+  .online_right {
+    color: rgb(255, 85, 52);
+    font-size: 12px;
+    line-height: 16px;
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 3px;
+  }
+  .anticon-exclamation-circle {
+    margin-left: 8px;
+    font-size: 16px;
+    color: rgb(255, 85, 52);
+  }
+}
+
+// 生成外链
+.links_modal {
+  .links_copy {
+    position: relative;
+    .ant-btn{
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  }
+}
