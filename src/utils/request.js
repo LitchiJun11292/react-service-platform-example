@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {Modal} from 'antd';
+import base from './base';
 
 const service = axios.create({
     baseURL: '/mocks',
@@ -36,7 +37,7 @@ const checkCatch = function (response) {
 };
 
 
-function buildRequest(method, url, params = {}) {
+function buildRequest (method, url, params = {}) {
     const args = {method, url};
 
     if (METHODS[1].includes(method)) {
@@ -55,5 +56,23 @@ const del = (url, params) => buildRequest('delete', url, params);
 
 const put = (url, params) => buildRequest('put', url, params);
 
+// 表格参数定制
+const requestList = (_this, url, params) => {
+    get(url, params).then(data => {
+        if (data) {
+            _this.setState({
+                list: data['item_list'].map((item, index) => {
+                    item.key = index;
+                    return item;
+                }),
+                pagination: base.pagination(data, (current) => {
+                    _this.params.page = current;
+                    _this.requestList();
+                })
+            });
+        }
+    });
+};
 
-export default {get, post, del, put};
+
+export default {get, post, del, put, requestList};
