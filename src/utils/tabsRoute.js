@@ -76,7 +76,8 @@ export default [
         title: "组卷",
         url: "/ucenter/Inform/combinePaper/:id",
         name: 'CombinePaper',
-        component: CombinePaper
+        component: CombinePaper,
+        noCache: true
     },
     /*** 系统管理 ***/
     {

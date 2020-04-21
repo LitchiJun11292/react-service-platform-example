@@ -24,13 +24,21 @@ class Ucenter extends React.Component {
                         {
                             tabsRoute.map(item => {
                                 let TrComponent = item.component;
-                                return (
-                                    <Route path={item.url} key={item.url}>
-                                        <KeepAlive name={item.name}>
+                                if(item.noCache){
+                                    return (
+                                        <Route path={item.url} key={item.url}>
                                             <TrComponent/>
-                                        </KeepAlive>
-                                    </Route>
-                                )
+                                        </Route>
+                                    );
+                                }else{
+                                    return (
+                                        <Route path={item.url} key={item.url}>
+                                            <KeepAlive name={item.name}>
+                                                <TrComponent/>
+                                            </KeepAlive>
+                                        </Route>
+                                    )
+                                }
                             })
                         }
                         {/*<Route path="/ucenter/service/hall" component={WorkHall}/>*/}
