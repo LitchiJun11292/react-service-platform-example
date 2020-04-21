@@ -1,9 +1,13 @@
+/*
+* 问卷管理
+ */
+/*** 列表 ***/
 .questionnaire_add {
   margin-top: 10px;
   padding-bottom: 10px;
 }
 
-// 上线模态框
+/*** 上线模态框 ***/
 .online_modal {
   .online_right {
     color: rgb(255, 85, 52);
@@ -20,14 +24,41 @@
   }
 }
 
-// 生成外链
+/*** 生成外链 ***/
 .links_modal {
   .links_copy {
     position: relative;
-    .ant-btn{
+    .ant-btn {
       position: absolute;
       top: 0;
       right: 0;
     }
+  }
+}
+
+/*** 新增问卷 ***/
+.add_question {
+  margin-top: 20px;
+  .ant-form:not(.ant-form-inline):not(.ant-form-vertical) {
+    max-width: 600px;
+  }
+
+  .add_question_item {
+    .ant-form-item-control-input-content{
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+  .add_question_item_co {
+    flex: 1;
+    .ant-picker{
+      width: 100%;
+    }
+  }
+  .add_question_item_span {
+    display: inline-block;
+    width: 24px;
+    line-height: 32px;
+    text-align: center;
   }
 }

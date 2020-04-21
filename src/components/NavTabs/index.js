@@ -51,13 +51,17 @@ class NavTabs extends React.Component {
 
     // 地址打开对应的tab页
     handleInitTableList = (route) => {
+        console.log(this.props);
         let filter = tabsRoute.filter(item => (item.url === route.pathname));
+        if (route.path) {
+            filter = tabsRoute.filter(item => (item.url === route.path));
+        }
         if (filter.length > 0) {
             let obj = filter[0];
             if (obj.url !== tabsRoute[0].url) {
                 this.props.initTablesRoutelist({
-                    title: obj.title,
-                    url: obj.url
+                    title: obj.title + (route.id ? route.id : ''),
+                    url: route.pathname
                 });
             }
         }

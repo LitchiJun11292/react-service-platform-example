@@ -6,6 +6,8 @@ import RegOrRcd from "../page/ucenter/regOrRcdCenter/regOrRcd";
 import RegOrRcdPro from "../page/ucenter/regOrRcdCenter/regOrRcdPro";
 import Contribute from "../page/ucenter/InfoManage/contribute";
 import Questionnaire from "../page/ucenter/InfoManage/questionnaire";
+import AddQuestion from "../page/ucenter/InfoManage/questionnaire/addQuestion";
+import CombinePaper from "../page/ucenter/InfoManage/questionnaire/combinePaper";
 import UserManage from "../page/ucenter/sysManage/userManage";
 import RoleManage from "../page/ucenter/sysManage/roleManage";
 
@@ -63,6 +65,18 @@ export default [
         url: "/ucenter/Inform/questionnaire",
         name: 'Questionnaire',
         component: Questionnaire
+    },
+    {
+        title: "新建问卷",
+        url: "/ucenter/Inform/addQuestion",
+        name: 'AddQuestion',
+        component: AddQuestion
+    },
+    {
+        title: "组卷",
+        url: "/ucenter/Inform/combinePaper/:id",
+        name: 'CombinePaper',
+        component: CombinePaper
     },
     /*** 系统管理 ***/
     {

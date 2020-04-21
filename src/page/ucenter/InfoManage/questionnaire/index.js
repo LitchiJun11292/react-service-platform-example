@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link, withRouter} from 'react-router-dom';
 import {Button, Modal} from 'antd';
 import BaseForm from './../../../../components/BaseForm';
 import ETable from './../../../../components/ETable';
@@ -90,6 +91,18 @@ class Questionnaire extends React.Component {
         console.log(obj);
     };
 
+    hanldePush = (url, data) => {
+        this.props.history.push({pathname: url, state: data});
+    };
+
+    hanldePushCombine = (record) => {
+        this.props.history.push({
+            pathname: `/ucenter/Inform/combinePaper/${record.id}`,
+            path: '/ucenter/Inform/combinePaper/:id',
+            id: record.id
+        });
+    };
+
     render () {
         const columns = [
             {
@@ -168,7 +181,9 @@ class Questionnaire extends React.Component {
                                         this.handleVisible('linksVisible', true, record)
                                     }}
                             >生成外链</Button>,
-                            <Button type="link" key="9">组卷</Button>,
+                            <Button type="link" key="9" onClick={() => {
+                                this.hanldePushCombine(record)
+                            }}>组卷</Button>,
                             <Button type="link" key="10">问卷结果</Button>)
                     }
                     return (<span>{arr}</span>)
@@ -181,7 +196,9 @@ class Questionnaire extends React.Component {
                 <BaseForm formList={this.formList}
                           formDate={this.state.formDate}/>
                 <div className="questionnaire_add">
-                    <Button type="primary">新增问卷</Button>
+                    <Button type="primary" onClick={() => {
+                        this.hanldePush('/ucenter/Inform/addQuestion', {})
+                    }}>新增问卷</Button>
                 </div>
                 <ETable dataSource={this.state.list}
                         columns={columns}
@@ -198,4 +215,4 @@ class Questionnaire extends React.Component {
     }
 }
 
-export default Questionnaire;
+export default withRouter(Questionnaire);
