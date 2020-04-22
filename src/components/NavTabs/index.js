@@ -50,18 +50,30 @@ class NavTabs extends React.Component {
     };
 
     // 地址打开对应的tab页
-    handleInitTableList = (route) => {
-        console.log(this.props);
-        let filter = tabsRoute.filter(item => (item.url === route.pathname));
-        if (route.path) {
-            filter = tabsRoute.filter(item => (item.url === route.path));
+    handleInitTableList = (routes) => {
+        let route = {...routes};
+        route.path = route.pathname;
+        if (route.state) {
+            for (let key in route.state) {
+                let reg = [`/${route.state[key]}/`, `/${route.state[key]}$`];
+                route.path = route.path.replace(new RegExp(reg.join('|'), 'g'), (msg) => {
+                    if (msg[msg.length - 1] === '/') {
+                        return `/:${key}/`;
+                    } else {
+                        return `/:${key}`;
+                    }
+                });
+            }
         }
+        let filter = tabsRoute.filter(item => (item.url === route.path));
         if (filter.length > 0) {
             let obj = filter[0];
             if (obj.url !== tabsRoute[0].url) {
                 this.props.initTablesRoutelist({
-                    title: obj.title + (route.id ? route.id : ''),
-                    url: route.pathname
+                    title: obj.title + (route.state && route.state.id ? route.state.id : ''),
+                    activeMenu: obj.activeMenu,
+                    url: route.pathname,
+                    state: route.state
                 });
             }
         }
@@ -90,7 +102,8 @@ class NavTabs extends React.Component {
                 >
                     {tableRouteList.map(pane => (
                         <TabPane tab={
-                            <NavLink to={pane.url} style={{color: 'inherit'}}>{pane.title}</NavLink>
+                            <NavLink to={{pathname: pane.url, ...pane}}
+                                     style={{color: 'inherit'}}>{pane.title}</NavLink>
                         } key={pane.url} closable={pane.closable}/>
                     ))}
                 </Tabs>

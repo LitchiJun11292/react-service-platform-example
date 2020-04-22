@@ -70,14 +70,16 @@ export default [
         title: "新建问卷",
         url: "/ucenter/Inform/addQuestion",
         name: 'AddQuestion',
-        component: AddQuestion
+        component: AddQuestion,
+        activeMenu: '/ucenter/Inform/questionnaire'
     },
     {
         title: "组卷",
         url: "/ucenter/Inform/combinePaper/:id",
         name: 'CombinePaper',
         component: CombinePaper,
-        noCache: true
+        noCache: true,
+        activeMenu: '/ucenter/Inform/questionnaire'
     },
     /*** 系统管理 ***/
     {

@@ -1,14 +1,14 @@
 /**
  * saga
  */
-// import {takeLatest, put} from "redux-saga/effects";
+// import {takeLatest, put, call} from "redux-saga/effects";
+// import {DYNAMIC_TABLES_ROUTE} from "./constants";
 // import {
-//     resetData
+//     initTablesRoutelist
 // } from "./actionCreators";
-// import {
-//     RESET_DATA_DIS
-// } from './constants';
+// import tabsRoute from "../../../utils/tabsRoute";
 
-export default function* appSaga() {
+
+export default function* appSaga () {
     // yield ...
 }

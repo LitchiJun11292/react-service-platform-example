@@ -98,8 +98,9 @@ class Questionnaire extends React.Component {
     hanldePushCombine = (record) => {
         this.props.history.push({
             pathname: `/ucenter/Inform/combinePaper/${record.id}`,
-            path: '/ucenter/Inform/combinePaper/:id',
-            id: record.id
+            state: {
+                id: record.id
+            }
         });
     };
 

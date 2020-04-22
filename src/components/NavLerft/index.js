@@ -6,13 +6,14 @@ import MenConfig from './../../utils/menuConfig';
 import {
     MailOutlined,
 } from '@ant-design/icons';
+import tabsRoute from "../../utils/tabsRoute";
 
 const {SubMenu} = Menu;
 
 class NavLerft extends React.Component {
 
     state = {
-        selectedKeys: '/ucenter/collectInformation',
+        selectedKeys: '',
         openKeys: [],
     };
 
@@ -27,7 +28,8 @@ class NavLerft extends React.Component {
     handleInitTableList = (route) => {
         let openKeys = route.pathname.split('/');
         this.setState({
-            openKeys: [openKeys[2]]
+            openKeys: [openKeys[2]],
+            selectedKeys: route.activeMenu ? route.activeMenu : route.pathname
         });
     };
 
@@ -36,7 +38,8 @@ class NavLerft extends React.Component {
         let openKeys = this.props.location.pathname.split('/');
         this.setState({
             menuTreeNode,
-            openKeys: [openKeys[2]]
+            openKeys: [openKeys[2]],
+            selectedKeys: this.props.location.pathname
         });
         this.props.history.listen((route) => {
             this.handleInitTableList(route);
@@ -84,7 +87,8 @@ class NavLerft extends React.Component {
             <Menu theme="dark" mode="inline"
                   openKeys={this.state.openKeys}
                   onOpenChange={this.onOpenChange}
-                  selectedKeys={this.props.location.pathname}
+                  // selectedKeys={this.props.location.pathname}
+                  selectedKeys={this.state.selectedKeys}
                   defaultSelectedKeys={['1']}>
                 {this.state.menuTreeNode}
             </Menu>
@@ -93,7 +97,8 @@ class NavLerft extends React.Component {
 }
 
 const mapState = (state) => ({
-    target: state.users.target
+    target: state.users.target,
+    tableRouteList: state.ucenter.tableRouteList
 });
 
 export default connect(mapState, null)(withRouter(NavLerft));
