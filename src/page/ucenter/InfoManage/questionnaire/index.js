@@ -79,7 +79,6 @@ class Questionnaire extends React.Component {
     };
 
     handleVisible = (name, val, item) => {
-        console.log(name);
         this.setState({
             [name]: val,
             itemInfo: item ? item : {}

@@ -44,14 +44,14 @@
   }
 
   .add_question_item {
-    .ant-form-item-control-input-content{
+    .ant-form-item-control-input-content {
       display: flex;
       justify-content: space-between;
     }
   }
   .add_question_item_co {
     flex: 1;
-    .ant-picker{
+    .ant-picker {
       width: 100%;
     }
   }
@@ -60,5 +60,44 @@
     width: 24px;
     line-height: 32px;
     text-align: center;
+  }
+}
+
+/*** 组卷 ***/
+.combine_paper {
+  .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab {
+    padding: 0;
+  }
+
+  .ant-dropdown-link {
+    padding: 0 16px;
+    line-height: 40px;
+    display: inline-block;
+  }
+
+  .surveyhead {
+    margin: 0 auto;
+    margin-top: 18px;
+    width: 90%;
+    cursor: pointer;
+    padding: 10px 0;
+    background: rgb(255, 255, 255);
+    border-bottom: 1px solid #E0E0E0;
+  }
+
+  .pater_title{
+    cursor: pointer;
+    font-size: 24px;
+    font-weight: bold;
+    color: #000;
+    vertical-align: middle;
+    margin: 0;
+    padding: 15px 0;
+    line-height: 30px;
+    text-align: center;
+  }
+
+  .surveydescription{
+    cursor: pointer;
   }
 }
