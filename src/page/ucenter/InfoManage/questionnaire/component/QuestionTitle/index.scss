@@ -1,0 +1,31 @@
+.title_question_all {
+  position: relative;
+  .topic_question {
+    margin-right: 8px;
+    font-size: 15px;
+    color: #444444;
+    font-weight: bold;
+    line-height: 20px;
+  }
+
+  .title{
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .content{
+    padding-left: 25px;
+    display: block;
+    p{
+      margin-bottom: 3px;
+    }
+  }
+
+  .req {
+    color: red;
+    font-weight: bold;
+    width: 7px;
+    display: inline-block;
+  }
+}

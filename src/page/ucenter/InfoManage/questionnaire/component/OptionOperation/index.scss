@@ -1,0 +1,39 @@
+.option_operation {
+  .option_title {
+    margin-top: 10px;
+    background-color: #F0F0EE;
+    height: 32px;
+    .anticon-swap {
+      transform: rotate(90deg);
+    }
+  }
+
+  .ant-col {
+    line-height: 32px;
+  }
+
+  .first_title {
+    padding-left: 20px;
+  }
+
+  .option_main {
+    margin-top: 8px;
+    .ant-col {
+      &:first-child {
+        padding-right: 30px;
+        display: flex;
+        svg {
+          margin-top: 5px;
+        }
+      }
+      .anticon {
+        padding-left: 5px;
+      }
+      svg {
+        color: #b1b1b1;
+        font-size: 18px;
+        cursor: pointer;
+      }
+    }
+  }
+}

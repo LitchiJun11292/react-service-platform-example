@@ -1,0 +1,11 @@
+.radio_type {
+  padding: 10px;
+  .radio_group{
+    margin-left: 20px;
+    margin-top: 8px;
+  }
+
+  .ant-radio-disabled + span {
+    color: rgba(0, 0, 0, 0.65);
+  }
+}

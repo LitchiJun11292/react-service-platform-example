@@ -2,9 +2,12 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import {Tabs, Dropdown, Menu} from 'antd';
+import {optionsType, optionsTemplate} from './../../../../utils/questionOptions.js';
+import {setOptionIndex} from './../../admin/actionCreators.js';
 import TitleModal from './component/titleModal.js';
+import QuestionItem from './component/QuestionItem';
 import './index.scss';
-import LinksModal from "./linksModal";
+import {resetData} from "../../admin/actionCreators";
 
 const {TabPane} = Tabs;
 
@@ -16,54 +19,34 @@ class AddQuestion extends React.Component {
             title: '666',
             decr: ''
         },
-        typesList: [
-            {
-                title: '选择题',
-                key: 1,
-                options: [
-                    {
-                        title: '单选',
-                        key: 'd01'
-                    },
-                    {
-                        title: '多选',
-                        key: 'd02'
-                    }
-                ]
-            },
-            {
-                title: '填空题',
-                key: 2,
-                options: [
-                    {
-                        title: '单选填空',
-                        key: 'd01'
-                    },
-                    {
-                        title: '多选填空',
-                        key: 'd02'
-                    }
-                ]
-            },
-            {
-                title: '分页说明',
-                key: 3,
-                options: [
-                    {
-                        title: '单选',
-                        key: 'd01'
-                    },
-                    {
-                        title: '多选',
-                        key: 'd02'
-                    }
-                ]
-            }
-        ],
+        typesList: [],
+        questionList: [],
+        indexEdit: null
     };
 
     onClick = ({key}) => {
-        console.log(key);
+        this.setState((state, props) => {
+            let questionList = [...state.questionList];
+            let index = this.props.optionIndex;
+            questionList.push(optionsTemplate[key](index));
+            this.props.setOptionIndexs(index + 2);
+            return {
+                questionList: questionList
+            }
+        });
+    };
+
+    handleVisible = (name, val, item) => {
+        this.setState({
+            [name]: val,
+            itemInfo: item ? item : {}
+        })
+    };
+
+    handleOk = (name, obj) => {
+        this.setState({
+            [name]: obj
+        });
     };
 
     handleMenuItem = (options) => {
@@ -86,19 +69,69 @@ class AddQuestion extends React.Component {
                 </Dropdown>} key={item.key}/>))
     };
 
-    handleVisible = (name, val, item) => {
-        this.setState({
-            [name]: val,
-            itemInfo: item ? item : {}
-        })
+    handlEdit = (objarr, i, obj) => {
+        // 更新:update  添加:add  减少:delete
+        if (i === (obj.keys.length - 1)) {
+            switch (obj.type) {
+                case 'update':
+                    objarr[obj.keys[i]] = obj.val;
+                    return false;
+                case 'add':
+                    objarr[obj.keys[i]].splice(obj.addIndex + 1, 0, {
+                        label: '',
+                        value: this.props.optionIndex + 1
+                    });
+                    this.props.setOptionIndexs(this.props.optionIndex + 1);
+                    return false;
+                case 'delete':
+                    objarr[obj.keys[i]].splice(obj.addIndex, 1);
+                    return false;
+            }
+        }
+        this.handlEdit(objarr[obj.keys[i]], i + 1, obj);
     };
 
-    handleOk = (name, obj) => {
-        this.setState({
-            [name]: obj
+    handleOnChange = (obj) => {
+        this.setState((state, props) => {
+            let questionList = [...state.questionList];
+            this.handlEdit(questionList, 0, obj);
+            return {
+                questionList: questionList
+            }
         });
-        console.log(name);
-        console.log(obj);
+    };
+
+    handleQuestionItem = () => {
+        return (
+            <div className="surveycontent">
+                {
+                    this.state.questionList.map((item, index) =>
+                        (<QuestionItem key={index}
+                                       handleEdit={this.handleEdit}
+                                       handleOnChange={this.handleOnChange}
+                                       {...item} keys={index}/>))
+                }
+            </div>
+        )
+    };
+
+    handleEdit = (index) => {
+        let questionList = [...this.state.questionList];
+
+        if (this.state.indexEdit !== null) {
+            delete questionList[this.state.indexEdit].isEdit;
+        }
+        this.setState({
+            questionList,
+            indexEdit: index
+        });
+    };
+
+    componentDidMount () {
+        console.log(this.props.optionIndex);
+        this.setState({
+            typesList: optionsType
+        });
     };
 
     render () {
@@ -115,6 +148,7 @@ class AddQuestion extends React.Component {
                     <h1 className="pater_title" title="标题">{this.state.question.title || '标题1'}</h1>
                     <div className="surveydescription">{this.state.question.decr || '添加问卷说明'}</div>
                 </div>
+                {this.handleQuestionItem()}
                 <TitleModal titleVisible={this.state.titleVisible}
                             question={this.state.question}
                             handleOk={this.handleOk}
@@ -124,4 +158,15 @@ class AddQuestion extends React.Component {
     }
 }
 
-export default connect(null, null)(withRouter(AddQuestion));
+const mapState = state => ({
+    optionIndex: state.ucenter.optionIndex
+});
+
+const mapProps = dispatch => ({
+    setOptionIndexs (index) {
+        dispatch(setOptionIndex(index))
+    }
+});
+
+
+export default connect(mapState, mapProps)(withRouter(AddQuestion));

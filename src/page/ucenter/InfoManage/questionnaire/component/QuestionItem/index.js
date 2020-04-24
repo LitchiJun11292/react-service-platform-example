@@ -1,0 +1,72 @@
+import React from 'react';
+import Radios from './../../questionType/Radios';
+import CKEditor from '@/components/CKEditors';
+import OptionOperation from './../OptionOperation';
+import './index.scss';
+
+class QuestionItem extends React.Component {
+    static defaultProps = {
+        isEdit: false
+    };
+
+    state = {isEdit: false};
+
+    componentDidMount () {
+        const {isEdit, keys, handleEdit} = this.props;
+        if (isEdit) {
+            handleEdit(keys);
+        }
+    }
+
+    componentWillReceiveProps (prop) {
+    };
+
+    shouldComponentUpdate (nextProps, nextState) {
+        return true;
+    }
+
+    handleType = () => {
+        const {type} = this.props;
+        switch (type) {
+            case 'd01':
+                return <Radios {...this.props} disabled={true}/>;
+        }
+    };
+
+    handleOperation = () => {
+        const {type} = this.props;
+        switch (type) {
+            case 'd01':
+                return <OptionOperation
+                    onOptionsEdit={this.onOptionsEdit}
+                    {...this.props}/>;
+        }
+    };
+
+    onOptionsEdit = (obj) => {
+        this.props.handleOnChange(obj);
+    };
+
+    onChangeEdit = (evt) => {
+        this.props.handleOnChange({
+            keys: [this.props.keys, 'title'],
+            type: 'update',
+            val: evt.editor.getData()
+        });
+    };
+
+    render () {
+        return (
+            <div className={`question_item ${this.props.isEdit ? 'is_active' : ''}`}>
+                {this.handleType()}
+                <div className="question_edit">
+                    <span className="edit_arrow"/>
+                    <CKEditor onChange={this.onChangeEdit}/>
+                    {this.handleOperation()}
+                </div>
+            </div>
+        )
+    }
+}
+
+export default QuestionItem;

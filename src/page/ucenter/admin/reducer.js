@@ -4,7 +4,8 @@
 import {
     INIT_TABLES_ROUTELIST,
     RESET_DATA,
-    CLEAR_DATA
+    CLEAR_DATA,
+    SET_OPTION_INDEX
 } from './constants';
 
 // const initialState = {
@@ -12,7 +13,8 @@ import {
 // };
 
 const initialState = () => ({
-    tableRouteList: []
+    tableRouteList: [],
+    optionIndex: 0
 });
 
 
@@ -32,7 +34,7 @@ const tablesRoutelist = (state, action) => {
     }
 };
 
-export default function appReducer(state = initialState(), action) {
+export default function appReducer (state = initialState(), action) {
     switch (action.type) {
         case INIT_TABLES_ROUTELIST:
             return tablesRoutelist(state, action);
@@ -41,6 +43,8 @@ export default function appReducer(state = initialState(), action) {
             return Object.assign({}, state, {tableRouteList: resetDates});
         case CLEAR_DATA:
             return initialState();
+        case SET_OPTION_INDEX:
+            return Object.assign({}, state, {optionIndex: action.data});
         default:
             return state;
     }

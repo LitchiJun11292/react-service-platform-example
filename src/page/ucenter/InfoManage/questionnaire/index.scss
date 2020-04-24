@@ -65,6 +65,11 @@
 
 /*** 组卷 ***/
 .combine_paper {
+
+  .ant-tabs-bar {
+    margin: 0;
+  }
+
   .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab {
     padding: 0;
   }
@@ -85,7 +90,7 @@
     border-bottom: 1px solid #E0E0E0;
   }
 
-  .pater_title{
+  .pater_title {
     cursor: pointer;
     font-size: 24px;
     font-weight: bold;
@@ -97,7 +102,13 @@
     text-align: center;
   }
 
-  .surveydescription{
+  .surveydescription {
     cursor: pointer;
+  }
+
+  .surveycontent {
+    margin: 0 auto;
+    margin-top: 18px;
+    width: 90%;
   }
 }
