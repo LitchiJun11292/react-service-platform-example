@@ -1,12 +1,13 @@
 import React from 'react';
-import {Row, Col, Input, Checkbox} from 'antd';
+import { Row, Col, Input, Checkbox } from 'antd';
 import {
     SwapOutlined,
     FileTextOutlined,
     UpCircleOutlined,
     DownCircleOutlined,
     PlusCircleOutlined,
-    MinusCircleOutlined
+    MinusCircleOutlined,
+    PlusSquareOutlined
 } from '@ant-design/icons';
 import './index.scss';
 
@@ -17,7 +18,7 @@ class OptionOperation extends React.Component {
         options: this.props.options
     };
 
-    componentDidMount () {
+    componentDidMount() {
 
     }
 
@@ -36,9 +37,9 @@ class OptionOperation extends React.Component {
     onChange = (e, index) => {
         let options = [...this.state.options];
         options[index].label = e.target.value;
-        this.setState({
-            options
-        });
+        // this.setState({
+        //     options
+        // });
         this.props.onOptionsEdit({
             keys: [this.props.keys, 'options', index, 'label'],
             type: 'update',
@@ -46,53 +47,69 @@ class OptionOperation extends React.Component {
         });
     };
 
-    render () {
+    render() {
         return (
             <div className="option_operation">
                 <Row className="option_title">
                     <Col span={12} className="first_title">
-                        选项文字<SwapOutlined/>
+                        选项文字<SwapOutlined onClick={() => {
+                                this.addOrDeleteOptions(0, 'reverse');
+                            }} />
                     </Col>
                     <Col span={3}>说明</Col>
                     <Col span={3}>允许填空</Col>
                     <Col span={3}>默认</Col>
                     <Col span={3}>上移下移</Col>
                 </Row>
-                {this.state.options.map((item, index) =>
+                {this.props.options.map((item, index) =>
                     (<Row className="option_main" key={item.value}>
                         <Col span={12}>
                             <Input placeholder={`选项${item.value}`} allowClear
-                                   value={item.label}
-                                   size="small"
-                                   onChange={(e) => {
-                                       e.persist();
-                                       this.onChange(e, index);
-                                   }}
-                                   onBlur={(e) => {
-                                       e.persist();
-                                       this.onBlur(e, index);
-                                   }}/>
+                                value={item.label}
+                                size="small"
+                                onChange={(e) => {
+                                    e.persist();
+                                    this.onChange(e, index);
+                                }}
+                                onBlur={(e) => {
+                                    e.persist();
+                                    this.onBlur(e, index);
+                                }} />
                             <PlusCircleOutlined onClick={() => {
                                 this.addOrDeleteOptions(index, 'add');
-                            }}/>
+                            }} />
                             <MinusCircleOutlined onClick={() => {
                                 this.addOrDeleteOptions(index, 'delete');
-                            }}/>
+                            }} />
                         </Col>
                         <Col span={3}>
-                            <FileTextOutlined/>
+                            <FileTextOutlined />
                         </Col>
                         <Col span={3}>
-                            <Checkbox/>
+                            <Checkbox />
                         </Col>
                         <Col span={3}>
-                            <Checkbox/>
+                            <Checkbox />
                         </Col>
                         <Col span={3}>
-                            <UpCircleOutlined/>
-                            <DownCircleOutlined/>
+                            <UpCircleOutlined />
+                            <DownCircleOutlined />
                         </Col>
                     </Row>))}
+                <Row className="option_footer">
+                    <Col span={12} className="footer_left">
+                        <span onClick={() => {
+                            this.addOrDeleteOptions(this.state.options.length - 1, 'add');
+                        }} >
+                            <PlusSquareOutlined /><span>添加选项</span>
+                        </span>
+
+                    </Col>
+                    <Col span={3}>说明</Col>
+                    <Col span={3}>允许填空</Col>
+                    <Col span={3}>默认</Col>
+                    <Col span={3}>上移下移</Col>
+                </Row>
             </div>
         )
     }

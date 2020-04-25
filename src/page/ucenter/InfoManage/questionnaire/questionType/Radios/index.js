@@ -28,7 +28,7 @@ class Radios extends React.Component {
                 <Radio.Group
                     disabled={this.props.disabled}
                     className="radio_group"
-                    onChange={this.onChange} value={value}>
+                    onChange={this.onChange} value={this.props.checkValue}>
                     {
                         this.props.options.map((item, index) => (<Radio
                             key={item.value}

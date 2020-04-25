@@ -18,8 +18,8 @@ class QuestionItem extends React.Component {
         }
     }
 
-    componentWillReceiveProps(prop) {
-    };
+    // componentWillReceiveProps(prop) {
+    // };
 
     shouldComponentUpdate(nextProps, nextState) {
         return true;

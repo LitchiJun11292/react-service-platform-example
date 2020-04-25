@@ -70,7 +70,7 @@ class AddQuestion extends React.Component {
     };
 
     handlEdit = (objarr, i, obj) => {
-        // 更新:update  添加:add  减少:delete
+        // 更新:update  添加:add  减少:delete  反向:reverse
         if (i === (obj.keys.length - 1)) {
             switch (obj.type) {
                 case 'update':
@@ -85,6 +85,9 @@ class AddQuestion extends React.Component {
                     return false;
                 case 'delete':
                     objarr[obj.keys[i]].splice(obj.addIndex, 1);
+                    return false;
+                case 'reverse':
+                    objarr[obj.keys[i]] = objarr[obj.keys[i]].reverse();
                     return false;
                 default:
                     return;

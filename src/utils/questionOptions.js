@@ -50,6 +50,7 @@ export const optionsTemplate = {
         type: 'd01',
         require: false,
         isEdit: true,
+        heckValue: '',
         options: [
             {
                 label: '',
