@@ -1,15 +1,14 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
-import {Tabs, Dropdown, Menu} from 'antd';
-import {optionsType, optionsTemplate} from './../../../../utils/questionOptions.js';
-import {setOptionIndex} from './../../admin/actionCreators.js';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { Tabs, Dropdown, Menu } from 'antd';
+import { optionsType, optionsTemplate } from './../../../../utils/questionOptions.js';
+import { setOptionIndex } from './../../admin/actionCreators.js';
 import TitleModal from './component/titleModal.js';
 import QuestionItem from './component/QuestionItem';
 import './index.scss';
-import {resetData} from "../../admin/actionCreators";
 
-const {TabPane} = Tabs;
+const { TabPane } = Tabs;
 
 class AddQuestion extends React.Component {
 
@@ -24,7 +23,7 @@ class AddQuestion extends React.Component {
         indexEdit: null
     };
 
-    onClick = ({key}) => {
+    onClick = ({ key }) => {
         this.setState((state, props) => {
             let questionList = [...state.questionList];
             let index = this.props.optionIndex;
@@ -63,10 +62,11 @@ class AddQuestion extends React.Component {
         return this.state.typesList.map(item => (
             <TabPane tab={
                 <Dropdown overlay={this.handleMenuItem(item.options)}>
+                    {/* eslint-disable-next-line */}
                     <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
                         {item.title}
                     </a>
-                </Dropdown>} key={item.key}/>))
+                </Dropdown>} key={item.key} />))
     };
 
     handlEdit = (objarr, i, obj) => {
@@ -86,6 +86,8 @@ class AddQuestion extends React.Component {
                 case 'delete':
                     objarr[obj.keys[i]].splice(obj.addIndex, 1);
                     return false;
+                default:
+                    return;
             }
         }
         this.handlEdit(objarr[obj.keys[i]], i + 1, obj);
@@ -107,9 +109,9 @@ class AddQuestion extends React.Component {
                 {
                     this.state.questionList.map((item, index) =>
                         (<QuestionItem key={index}
-                                       handleEdit={this.handleEdit}
-                                       handleOnChange={this.handleOnChange}
-                                       {...item} keys={index}/>))
+                            handleEdit={this.handleEdit}
+                            handleOnChange={this.handleOnChange}
+                            {...item} keys={index} />))
                 }
             </div>
         )
@@ -127,14 +129,14 @@ class AddQuestion extends React.Component {
         });
     };
 
-    componentDidMount () {
+    componentDidMount() {
         console.log(this.props.optionIndex);
         this.setState({
             typesList: optionsType
         });
     };
 
-    render () {
+    render() {
 
         return (
             <div className="combine_paper">
@@ -142,17 +144,17 @@ class AddQuestion extends React.Component {
                     {this.handleTabPane()}
                 </Tabs>
                 <div id="divId" className="surveyhead" title="编辑问卷标题与问卷说明"
-                     onClick={() => {
-                         this.handleVisible('titleVisible', true);
-                     }}>
+                    onClick={() => {
+                        this.handleVisible('titleVisible', true);
+                    }}>
                     <h1 className="pater_title" title="标题">{this.state.question.title || '标题1'}</h1>
                     <div className="surveydescription">{this.state.question.decr || '添加问卷说明'}</div>
                 </div>
                 {this.handleQuestionItem()}
                 <TitleModal titleVisible={this.state.titleVisible}
-                            question={this.state.question}
-                            handleOk={this.handleOk}
-                            handleVisible={this.handleVisible}/>
+                    question={this.state.question}
+                    handleOk={this.handleOk}
+                    handleVisible={this.handleVisible} />
             </div>
         )
     }
@@ -163,7 +165,7 @@ const mapState = state => ({
 });
 
 const mapProps = dispatch => ({
-    setOptionIndexs (index) {
+    setOptionIndexs(index) {
         dispatch(setOptionIndex(index))
     }
 });

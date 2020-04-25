@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
-import {NavLink, withRouter} from 'react-router-dom';
+// import React, {useState} from 'react';
+import React from 'react';
+import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import CKEditor from 'ckeditor4-react';
 import './index.scss';

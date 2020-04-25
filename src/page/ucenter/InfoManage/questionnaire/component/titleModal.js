@@ -1,5 +1,5 @@
 import React from 'react';
-import {Modal, Form, Radio, Input, Select} from "antd";
+import {Modal, Form, Input} from "antd";
 
 const TitleModal = (props) => {
     const {titleVisible, handleVisible, handleOk, question} = props;

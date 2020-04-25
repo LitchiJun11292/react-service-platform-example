@@ -9,37 +9,41 @@ class QuestionItem extends React.Component {
         isEdit: false
     };
 
-    state = {isEdit: false};
+    state = { isEdit: false };
 
-    componentDidMount () {
-        const {isEdit, keys, handleEdit} = this.props;
+    componentDidMount() {
+        const { isEdit, keys, handleEdit } = this.props;
         if (isEdit) {
             handleEdit(keys);
         }
     }
 
-    componentWillReceiveProps (prop) {
+    componentWillReceiveProps(prop) {
     };
 
-    shouldComponentUpdate (nextProps, nextState) {
+    shouldComponentUpdate(nextProps, nextState) {
         return true;
     }
 
     handleType = () => {
-        const {type} = this.props;
+        const { type } = this.props;
         switch (type) {
             case 'd01':
-                return <Radios {...this.props} disabled={true}/>;
+                return <Radios {...this.props} disabled={true} />;
+            default:
+                return;
         }
     };
 
     handleOperation = () => {
-        const {type} = this.props;
+        const { type } = this.props;
         switch (type) {
             case 'd01':
                 return <OptionOperation
                     onOptionsEdit={this.onOptionsEdit}
-                    {...this.props}/>;
+                    {...this.props} />;
+            default:
+                return;
         }
     };
 
@@ -55,13 +59,13 @@ class QuestionItem extends React.Component {
         });
     };
 
-    render () {
+    render() {
         return (
             <div className={`question_item ${this.props.isEdit ? 'is_active' : ''}`}>
                 {this.handleType()}
                 <div className="question_edit">
-                    <span className="edit_arrow"/>
-                    <CKEditor onChange={this.onChangeEdit}/>
+                    <span className="edit_arrow" />
+                    <CKEditor onChange={this.onChangeEdit} />
                     {this.handleOperation()}
                 </div>
             </div>

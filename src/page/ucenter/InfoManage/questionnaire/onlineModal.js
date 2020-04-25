@@ -1,5 +1,5 @@
 import React from 'react';
-import {Modal, Form, Radio, Input, Select, Button} from "antd";
+import {Modal, Form, Radio, Input, Select} from "antd";
 import {
     ExclamationCircleOutlined
 } from '@ant-design/icons';

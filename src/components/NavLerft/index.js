@@ -6,7 +6,6 @@ import MenConfig from './../../utils/menuConfig';
 import {
     MailOutlined,
 } from '@ant-design/icons';
-import tabsRoute from "../../utils/tabsRoute";
 
 const {SubMenu} = Menu;
 

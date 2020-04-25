@@ -15,7 +15,6 @@ class Radios extends React.Component {
     };
 
     render () {
-        const {keys, title} = this.props;
         const {value} = this.state;
 
         const radioStyle = {

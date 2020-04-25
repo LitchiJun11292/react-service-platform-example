@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { NavLink, withRouter } from 'react-router-dom';
+import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Form, Input, Select, Button, DatePicker } from 'antd';
 import './index.scss';
@@ -54,6 +54,8 @@ class BaseForm extends React.Component {
                         </Form.Item>
                     ];
                     return times;
+                default:
+                    return false;
             }
         })
     };
