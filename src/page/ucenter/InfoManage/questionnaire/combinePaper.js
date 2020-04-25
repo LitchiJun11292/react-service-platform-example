@@ -134,11 +134,13 @@ class AddQuestion extends React.Component {
         )
     };
 
-    handleEdit = (index) => {
+    handleEdit = (index, type) => {
         let questionList = [...this.state.questionList];
-
         if (this.state.indexEdit !== null) {
             delete questionList[this.state.indexEdit].isEdit;
+        }
+        if (type === 'update') {
+            questionList[index].isEdit = true;
         }
         this.setState({
             questionList,

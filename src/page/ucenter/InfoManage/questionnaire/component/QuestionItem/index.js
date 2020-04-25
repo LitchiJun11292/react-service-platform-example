@@ -14,7 +14,7 @@ class QuestionItem extends React.Component {
     componentDidMount() {
         const { isEdit, keys, handleEdit } = this.props;
         if (isEdit) {
-            handleEdit(keys);
+            handleEdit(keys, 'add');
         }
     }
 
@@ -60,14 +60,24 @@ class QuestionItem extends React.Component {
     };
 
     render() {
+        const { keys, handleEdit } = this.props;
+
         return (
             <div className={`question_item ${this.props.isEdit ? 'is_active' : ''}`}>
-                {this.handleType()}
-                <div className="question_edit">
-                    <span className="edit_arrow" />
-                    <CKEditor onChange={this.onChangeEdit} />
-                    {this.handleOperation()}
+                <div onClick={() => { 
+                    handleEdit(keys, 'update')
+                }}>
+                    {this.handleType()}
                 </div>
+                {
+                    this.props.isEdit ?
+                        <div className="question_edit">
+                            <span className="edit_arrow" />
+                            <CKEditor onChange={this.onChangeEdit} />
+                            {this.handleOperation()}
+                        </div> : ''
+                }
+
             </div>
         )
     }
