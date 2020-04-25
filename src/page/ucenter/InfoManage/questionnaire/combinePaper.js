@@ -70,24 +70,38 @@ class AddQuestion extends React.Component {
     };
 
     handlEdit = (objarr, i, obj) => {
-        // 更新:update  添加:add  减少:delete  反向:reverse
+        // 更新:update  添加:add  减少:delete  反向:reverse  上移：moveUp 下移：moveDown
         if (i === (obj.keys.length - 1)) {
             switch (obj.type) {
                 case 'update':
                     objarr[obj.keys[i]] = obj.val;
                     return false;
                 case 'add':
-                    objarr[obj.keys[i]].splice(obj.addIndex + 1, 0, {
+                    objarr[obj.keys[i]].splice(obj.opIndex + 1, 0, {
                         label: '',
                         value: this.props.optionIndex + 1
                     });
                     this.props.setOptionIndexs(this.props.optionIndex + 1);
                     return false;
                 case 'delete':
-                    objarr[obj.keys[i]].splice(obj.addIndex, 1);
+                    objarr[obj.keys[i]].splice(obj.opIndex, 1);
                     return false;
                 case 'reverse':
                     objarr[obj.keys[i]] = objarr[obj.keys[i]].reverse();
+                    return false;
+                case 'moveUp':
+                    if (obj.opIndex !== 0) {
+                        let objs = objarr[obj.keys[i]][obj.opIndex];
+                        objarr[obj.keys[i]].splice(obj.opIndex, 1);
+                        objarr[obj.keys[i]].splice(obj.opIndex - 1, 0, objs);
+                    }
+                    return false;
+                case 'moveDown':
+                    if (obj.opIndex !== objarr[obj.keys[i]].length - 1) {
+                        let objs = objarr[obj.keys[i]][obj.opIndex];
+                        objarr[obj.keys[i]].splice(obj.opIndex, 1);
+                        objarr[obj.keys[i]].splice(obj.opIndex + 1, 0, objs);
+                    }
                     return false;
                 default:
                     return;

@@ -27,7 +27,7 @@ class OptionOperation extends React.Component {
         this.props.onOptionsEdit({
             keys: [this.props.keys, 'options'],
             type: type,
-            addIndex: index
+            opIndex: index
         });
     };
 
@@ -53,8 +53,8 @@ class OptionOperation extends React.Component {
                 <Row className="option_title">
                     <Col span={12} className="first_title">
                         选项文字<SwapOutlined onClick={() => {
-                                this.addOrDeleteOptions(0, 'reverse');
-                            }} />
+                            this.addOrDeleteOptions(0, 'reverse');
+                        }} />
                     </Col>
                     <Col span={3}>说明</Col>
                     <Col span={3}>允许填空</Col>
@@ -92,8 +92,12 @@ class OptionOperation extends React.Component {
                             <Checkbox />
                         </Col>
                         <Col span={3}>
-                            <UpCircleOutlined />
-                            <DownCircleOutlined />
+                            <UpCircleOutlined onClick={() => {
+                                this.addOrDeleteOptions(index, 'moveUp');
+                            }} />
+                            <DownCircleOutlined onClick={() => {
+                                this.addOrDeleteOptions(index, 'moveDown');
+                            }}/>
                         </Col>
                     </Row>))}
                 <Row className="option_footer">
