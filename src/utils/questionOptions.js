@@ -50,15 +50,18 @@ export const optionsTemplate = {
         type: 'd01',
         require: false,
         isEdit: true,
-        heckValue: '',
+        checkValue: '',
+        id: Math.random(),
         options: [
             {
                 label: '',
-                value: index + 1
+                value: index + 1,
+                isBlank: false
             },
             {
                 label: '',
-                value: index + 2
+                value: index + 2,
+                isBlank: false
             }
         ]
     })

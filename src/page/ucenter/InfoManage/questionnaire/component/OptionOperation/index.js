@@ -35,8 +35,8 @@ class OptionOperation extends React.Component {
     };
 
     onChange = (e, index) => {
-        let options = [...this.state.options];
-        options[index].label = e.target.value;
+        // let options = [...this.state.options];
+        // options[index].label = e.target.value;
         // this.setState({
         //     options
         // });
@@ -46,6 +46,22 @@ class OptionOperation extends React.Component {
             val: e.target.value
         });
     };
+
+    onChangeDefault = (e, val) => {
+        this.props.onOptionsEdit({
+            keys: [this.props.keys, 'checkValue'],
+            type: 'update',
+            val: val
+        });
+    };
+
+    onChangeBlank = (e, val, index) => {
+        this.props.onOptionsEdit({
+            keys: [this.props.keys, 'options', index, 'isBlank'],
+            type: 'update',
+            val: val
+        });
+    }
 
     render() {
         return (
@@ -86,10 +102,16 @@ class OptionOperation extends React.Component {
                             <FileTextOutlined />
                         </Col>
                         <Col span={3}>
-                            <Checkbox />
+                            <Checkbox checked={item.isBlank}
+                                onChange={(e) => {
+                                    this.onChangeBlank(e, !item.isBlank, index);
+                                }} />
                         </Col>
                         <Col span={3}>
-                            <Checkbox />
+                            <Checkbox checked={this.props.checkValue !== item.value ? false : true}
+                                onChange={(e) => {
+                                    this.onChangeDefault(e, this.props.checkValue !== item.value ? item.value : '');
+                                }} />
                         </Col>
                         <Col span={3}>
                             <UpCircleOutlined onClick={() => {
@@ -97,7 +119,7 @@ class OptionOperation extends React.Component {
                             }} />
                             <DownCircleOutlined onClick={() => {
                                 this.addOrDeleteOptions(index, 'moveDown');
-                            }}/>
+                            }} />
                         </Col>
                     </Row>))}
                 <Row className="option_footer">

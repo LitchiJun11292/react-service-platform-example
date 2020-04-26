@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Tabs, Dropdown, Menu } from 'antd';
+import { Tabs, Dropdown, Menu, notification } from 'antd';
 import { optionsType, optionsTemplate } from './../../../../utils/questionOptions.js';
 import { setOptionIndex } from './../../admin/actionCreators.js';
 import TitleModal from './component/titleModal.js';
@@ -20,7 +20,7 @@ class AddQuestion extends React.Component {
         },
         typesList: [],
         questionList: [],
-        indexEdit: null
+        editId: null
     };
 
     onClick = ({ key }) => {
@@ -69,7 +69,7 @@ class AddQuestion extends React.Component {
                 </Dropdown>} key={item.key} />))
     };
 
-    handlEdit = (objarr, i, obj) => {
+    handelEditOpt = (objarr, i, obj) => {
         // 更新:update  添加:add  减少:delete  反向:reverse  上移：moveUp 下移：moveDown
         if (i === (obj.keys.length - 1)) {
             switch (obj.type) {
@@ -79,7 +79,9 @@ class AddQuestion extends React.Component {
                 case 'add':
                     objarr[obj.keys[i]].splice(obj.opIndex + 1, 0, {
                         label: '',
-                        value: this.props.optionIndex + 1
+                        value: this.props.optionIndex + 1,
+                        isBlank: false,
+                        id: Math.random()
                     });
                     this.props.setOptionIndexs(this.props.optionIndex + 1);
                     return false;
@@ -107,15 +109,89 @@ class AddQuestion extends React.Component {
                     return;
             }
         }
-        this.handlEdit(objarr[obj.keys[i]], i + 1, obj);
+        this.handelEditOpt(objarr[obj.keys[i]], i + 1, obj);
     };
 
-    handleOnChange = (obj) => {
+    handleOnChangeOpt = (obj) => {
         this.setState((state, props) => {
             let questionList = [...state.questionList];
-            this.handlEdit(questionList, 0, obj);
+            this.handelEditOpt(questionList, 0, obj);
             return {
                 questionList: questionList
+            }
+        });
+    };
+
+    handleOnOpaList = (obj) => {
+        // 更新:update  减少:delete  上移：moveUp 下移：moveDown  最前： first  最后： last
+        this.setState((state, props) => {
+            let questionList = [...state.questionList];
+            let item = questionList[obj.keys];
+            let editId = this.state.editId;
+
+            switch (obj.type) {
+                case 'delete':
+                    questionList.splice(obj.keys, 1);
+                    break;
+                case 'update':
+                    item.isEdit = true;
+                    editId = obj.keys;
+                    break;
+                case 'moveUp':
+                    if (obj.keys !== 0) {
+                        questionList.splice(obj.keys, 1);
+                        questionList.splice(obj.keys - 1, 0, item);
+                    } else {
+                        notification.warning({
+                            message: '提示',
+                            description:
+                                '第一题不能再上移',
+                        });
+                    }
+                    break;
+                case 'moveDown':
+                    if (obj.keys !== (questionList.length - 1)) {
+                        questionList.splice(obj.keys, 1);
+                        questionList.splice(obj.keys + 1, 0, item);
+                    } else {
+                        notification.warning({
+                            message: '提示',
+                            description:
+                                '最后一题不能再下移',
+                        });
+                    }
+                    break;
+                case 'first':
+                    if (obj.keys !== 0) {
+                        questionList.splice(obj.keys, 1);
+                        questionList.unshift(item);
+                    } else {
+                        notification.warning({
+                            message: '提示',
+                            description:
+                                '第一题不能再上移',
+                        });
+                    }
+                    break;
+                case 'last':
+                    if (obj.keys !== (questionList.length - 1)) {
+                        questionList.splice(obj.keys, 1);
+                        questionList.push(item);
+                    } else {
+                        notification.warning({
+                            message: '提示',
+                            description:
+                                '最后一题不能再下移',
+                        });
+                    }
+                    break;
+                default:
+                    return;
+            }
+
+            return {
+                questionList: questionList,
+                editId
             }
         });
     };
@@ -127,24 +203,30 @@ class AddQuestion extends React.Component {
                     this.state.questionList.map((item, index) =>
                         (<QuestionItem key={index}
                             handleEdit={this.handleEdit}
-                            handleOnChange={this.handleOnChange}
+                            handleOnChangeOpt={this.handleOnChangeOpt}
+                            handleOnOpaList={this.handleOnOpaList}
                             {...item} keys={index} />))
                 }
             </div>
         )
     };
 
-    handleEdit = (index, type) => {
+    handleEdit = (obj) => {
         let questionList = [...this.state.questionList];
-        if (this.state.indexEdit !== null) {
-            delete questionList[this.state.indexEdit].isEdit;
+        let Index = questionList.findIndex(item => (item.id === this.state.editId));
+        let currentIndex = questionList.findIndex(item => (item.id === obj.id));
+
+        if (Index > -1) {
+            delete questionList[Index].isEdit;
         }
-        if (type === 'update') {
-            questionList[index].isEdit = true;
+
+        if (obj.type === 'update' && currentIndex > -1) {
+            questionList[currentIndex].isEdit = obj.val;
         }
+
         this.setState({
             questionList,
-            indexEdit: index
+            editId: obj.id
         });
     };
 

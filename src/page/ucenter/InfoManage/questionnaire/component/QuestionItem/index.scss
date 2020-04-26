@@ -1,9 +1,11 @@
 .question_item {
   margin-bottom: 10px;
   border: 1px solid transparent;
+
   &:hover {
     border-color: #fb9803;
   }
+
   &.is_active {
     border-color: #1890ff;
   }
@@ -13,6 +15,7 @@
     background: #FAFAFA;
     border-top: 1px solid #dfe4e6;
     position: relative;
+
     &:before {
       position: absolute;
       content: '';
@@ -24,6 +27,36 @@
       border-left: 1px solid #dfe4e6;
       background: #FAFAFA;
       transform: rotate(45deg);
+    }
+  }
+
+  .question_opa {
+    padding: 10px 10px 10px 30px;
+
+    .ant-col {
+      visibility: hidden;
+    }
+
+    &:hover {
+      .ant-col {
+        visibility: visible;
+      }
+    }
+
+    &.is_active {
+      display: none;
+    }
+
+    .question_left{
+      transition: all .3s;
+    }
+
+    .question_right {
+      text-align: right;
+
+      .ant-btn {
+        margin-left: 10px;
+      }
     }
   }
 }

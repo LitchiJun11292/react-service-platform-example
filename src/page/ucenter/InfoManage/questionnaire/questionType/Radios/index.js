@@ -4,9 +4,7 @@ import QuestionTitle from './../../component/QuestionTitle';
 import './index.scss';
 
 class Radios extends React.Component {
-    state = {
-        value: 1,
-    };
+
     onChange = e => {
         console.log('radio checked', e.target.value);
         this.setState({
@@ -15,7 +13,6 @@ class Radios extends React.Component {
     };
 
     render () {
-        const {value} = this.state;
 
         const radioStyle = {
             display: 'block',
@@ -33,7 +30,7 @@ class Radios extends React.Component {
                         this.props.options.map((item, index) => (<Radio
                             key={item.value}
                             style={radioStyle} value={item.value}>
-                            {item.label || `选项${item.value}`}
+                            {item.label || `选项${item.value}`}{item.isBlank?'w':'j'}
                         </Radio>))
                     }
                 </Radio.Group>
