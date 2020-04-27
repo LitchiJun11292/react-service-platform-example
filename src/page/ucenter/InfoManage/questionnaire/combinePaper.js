@@ -1,14 +1,14 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { Tabs, Dropdown, Menu, notification } from 'antd';
-import { optionsType, optionsTemplate } from './../../../../utils/questionOptions.js';
-import { setOptionIndex } from './../../admin/actionCreators.js';
+import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom';
+import {Tabs, Dropdown, Menu, notification, Button} from 'antd';
+import {optionsType, optionsTemplate} from './../../../../utils/questionOptions.js';
+import {setOptionIndex} from './../../admin/actionCreators.js';
 import TitleModal from './component/titleModal.js';
 import QuestionItem from './component/QuestionItem';
 import './index.scss';
 
-const { TabPane } = Tabs;
+const {TabPane} = Tabs;
 
 class AddQuestion extends React.Component {
 
@@ -20,18 +20,27 @@ class AddQuestion extends React.Component {
         },
         typesList: [],
         questionList: [],
-        editId: null
+        editId: null,
+        inserOrder: null
     };
 
-    onClick = ({ key }) => {
-        this.setState((state, props) => {
-            let questionList = [...state.questionList];
-            let index = this.props.optionIndex;
+    onClick = ({key}) => {
+        let questionList = [...this.state.questionList];
+        let index = this.props.optionIndex;
+        let itemIndex = questionList.findIndex(item => (item.id === this.state.inserOrder));
+        // let currentIndex = questionList.findIndex(item => (item.id === this.state.editId));
+        if (itemIndex > -1) {
+            questionList.splice(itemIndex + 1, 0, optionsTemplate[key](index));
+            this.setState({
+                inserOrder: null
+            });
+        } else {
             questionList.push(optionsTemplate[key](index));
-            this.props.setOptionIndexs(index + 2);
-            return {
-                questionList: questionList
-            }
+        }
+        console.log(questionList);
+        this.props.setOptionIndexs(index + 2);
+        this.setState({
+            questionList: questionList
         });
     };
 
@@ -66,7 +75,7 @@ class AddQuestion extends React.Component {
                     <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
                         {item.title}
                     </a>
-                </Dropdown>} key={item.key} />))
+                </Dropdown>} key={item.key}/>))
     };
 
     handelEditOpt = (objarr, i, obj) => {
@@ -113,12 +122,10 @@ class AddQuestion extends React.Component {
     };
 
     handleOnChangeOpt = (obj) => {
-        this.setState((state, props) => {
-            let questionList = [...state.questionList];
-            this.handelEditOpt(questionList, 0, obj);
-            return {
-                questionList: questionList
-            }
+        let questionList = [...this.state.questionList];
+        this.handelEditOpt(questionList, 0, obj);
+        this.setState({
+            questionList: questionList
         });
     };
 
@@ -201,21 +208,28 @@ class AddQuestion extends React.Component {
             <div className="surveycontent">
                 {
                     this.state.questionList.map((item, index) =>
-                        (<QuestionItem key={index}
-                            handleEdit={this.handleEdit}
-                            handleOnChangeOpt={this.handleOnChangeOpt}
-                            handleOnOpaList={this.handleOnOpaList}
-                            {...item} keys={index} />))
+                        (<QuestionItem key={item.id}
+                                       handleEdit={this.handleEdit}
+                                       handleOnChangeOpt={this.handleOnChangeOpt}
+                                       handleOnOpaList={this.handleOnOpaList}
+                                       handleInserOrder={this.handleInserOrder}
+                                       inserOrder={this.state.inserOrder}
+                                       {...item} keys={index}/>))
                 }
             </div>
         )
+    };
+
+    handleInserOrder = (id) => {
+        this.setState({
+            inserOrder: id
+        });
     };
 
     handleEdit = (obj) => {
         let questionList = [...this.state.questionList];
         let Index = questionList.findIndex(item => (item.id === this.state.editId));
         let currentIndex = questionList.findIndex(item => (item.id === obj.id));
-
         if (Index > -1) {
             delete questionList[Index].isEdit;
         }
@@ -230,32 +244,33 @@ class AddQuestion extends React.Component {
         });
     };
 
-    componentDidMount() {
-        console.log(this.props.optionIndex);
+    componentDidMount () {
         this.setState({
             typesList: optionsType
         });
     };
 
-    render() {
+    render () {
 
         return (
             <div className="combine_paper">
                 <Tabs type="card">
                     {this.handleTabPane()}
                 </Tabs>
-                <div id="divId" className="surveyhead" title="编辑问卷标题与问卷说明"
-                    onClick={() => {
-                        this.handleVisible('titleVisible', true);
-                    }}>
-                    <h1 className="pater_title" title="标题">{this.state.question.title || '标题1'}</h1>
-                    <div className="surveydescription">{this.state.question.decr || '添加问卷说明'}</div>
+                <div className="combine_main">
+                    <div id="divId" className="surveyhead" title="编辑问卷标题与问卷说明"
+                         onClick={() => {
+                             this.handleVisible('titleVisible', true);
+                         }}>
+                        <h1 className="pater_title" title="标题">{this.state.question.title || '标题1'}</h1>
+                        <div className="surveydescription">{this.state.question.decr || '添加问卷说明'}</div>
+                    </div>
+                    {this.handleQuestionItem()}
                 </div>
-                {this.handleQuestionItem()}
                 <TitleModal titleVisible={this.state.titleVisible}
-                    question={this.state.question}
-                    handleOk={this.handleOk}
-                    handleVisible={this.handleVisible} />
+                            question={this.state.question}
+                            handleOk={this.handleOk}
+                            handleVisible={this.handleVisible}/>
             </div>
         )
     }
@@ -266,7 +281,7 @@ const mapState = state => ({
 });
 
 const mapProps = dispatch => ({
-    setOptionIndexs(index) {
+    setOptionIndexs (index) {
         dispatch(setOptionIndex(index))
     }
 });

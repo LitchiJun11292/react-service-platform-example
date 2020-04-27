@@ -80,10 +80,14 @@
     display: inline-block;
   }
 
-  .surveyhead {
+  .combine_main{
     margin: 0 auto;
+    padding: 0 20px;
     margin-top: 18px;
     width: 90%;
+  }
+
+  .surveyhead {
     cursor: pointer;
     padding: 10px 0;
     background: rgb(255, 255, 255);
@@ -107,8 +111,6 @@
   }
 
   .surveycontent {
-    margin: 0 auto;
     margin-top: 18px;
-    width: 90%;
   }
 }

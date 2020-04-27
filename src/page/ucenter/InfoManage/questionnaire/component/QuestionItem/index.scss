@@ -1,7 +1,7 @@
 .question_item {
   margin-bottom: 10px;
   border: 1px solid transparent;
-
+  border-bottom: 1px solid #E0E0E0;
   &:hover {
     border-color: #fb9803;
   }
@@ -31,7 +31,7 @@
   }
 
   .question_opa {
-    padding: 10px 10px 10px 30px;
+    padding: 0 10px 10px 30px;
 
     .ant-col {
       visibility: hidden;
@@ -48,7 +48,9 @@
     }
 
     .question_left{
-      transition: all .3s;
+      cursor: pointer;
+      color: #1ea0fa;
+      text-decoration: underline;
     }
 
     .question_right {
@@ -56,6 +58,7 @@
 
       .ant-btn {
         margin-left: 10px;
+        transition: all 0s;
       }
     }
   }
