@@ -6,6 +6,7 @@ import {optionsType, optionsTemplate} from './../../../../utils/questionOptions.
 import {setOptionIndex} from './../../admin/actionCreators.js';
 import TitleModal from './component/titleModal.js';
 import QuestionItem from './component/QuestionItem';
+import base from './../../../../utils/base.js';
 import './index.scss';
 
 const {TabPane} = Tabs;
@@ -28,7 +29,6 @@ class AddQuestion extends React.Component {
         let questionList = [...this.state.questionList];
         let index = this.props.optionIndex;
         let itemIndex = questionList.findIndex(item => (item.id === this.state.inserOrder));
-        // let currentIndex = questionList.findIndex(item => (item.id === this.state.editId));
         if (itemIndex > -1) {
             questionList.splice(itemIndex + 1, 0, optionsTemplate[key](index));
             this.setState({
@@ -37,7 +37,6 @@ class AddQuestion extends React.Component {
         } else {
             questionList.push(optionsTemplate[key](index));
         }
-        console.log(questionList);
         this.props.setOptionIndexs(index + 2);
         this.setState({
             questionList: questionList
@@ -130,7 +129,7 @@ class AddQuestion extends React.Component {
     };
 
     handleOnOpaList = (obj) => {
-        // 更新:update  减少:delete  上移：moveUp 下移：moveDown  最前： first  最后： last
+        // 更新:update  减少:delete  上移：moveUp 下移：moveDown  最前： first  最后： last  复制: copy
         this.setState((state, props) => {
             let questionList = [...state.questionList];
             let item = questionList[obj.keys];
@@ -191,6 +190,11 @@ class AddQuestion extends React.Component {
                                 '最后一题不能再下移',
                         });
                     }
+                    break;
+                case 'copy':
+                    let objs = base.deepClone(questionList[obj.keys]);
+                    objs.id = Math.random();
+                    questionList.splice(obj.keys, 0, objs);
                     break;
                 default:
                     return;

@@ -109,7 +109,10 @@ class QuestionItem extends React.Component {
                                     onClick={(e) => {
                                         this.handleOprateOrder(e, 'update')
                                     }}>编辑</Button>
-                            <Button size="small" icon={<CopyOutlined/>}>复制</Button>
+                            <Button size="small" icon={<CopyOutlined/>}
+                                    onClick={(e) => {
+                                        this.handleOprateOrder(e, 'copy')
+                                    }}>复制</Button>
                             <Button size="small" icon={<DeleteOutlined/>}
                                     onClick={(e) => {
                                         this.handleOprateOrder(e, 'delete')
@@ -137,7 +140,8 @@ class QuestionItem extends React.Component {
                     this.props.isEdit ?
                         <div className="question_edit">
                             <span className="edit_arrow"/>
-                            <CKEditor onChange={this.onChangeEditor}/>
+                            <CKEditor onChange={this.onChangeEditor}
+                                      data={this.props.title}/>
                             {this.handleOperation()}
                         </div> : ''
                 }

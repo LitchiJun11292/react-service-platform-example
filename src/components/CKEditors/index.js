@@ -20,7 +20,7 @@ class CKEditors extends React.Component {
                     resize_minHeight: 300,
                     resize_maxWidth: 800
                 }}
-                // data="<p>Hello from CKEditor 4!</p>"
+                data={this.props.data}
                 onChange={onChange}
             />
         );

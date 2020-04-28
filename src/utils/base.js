@@ -57,7 +57,7 @@ export default {
         return "";
     },
     // 页码统一处理
-    pagination(data, callback) {
+    pagination (data, callback) {
         return {
             onChange: (current) => {
                 callback(current);
@@ -71,4 +71,17 @@ export default {
             // showQuickJumper: true
         }
     },
+    // 深拷贝
+    deepClone (obj) {
+        let copy = Object.create(Object.getPrototypeOf(obj));
+        let propNames = Object.getOwnPropertyNames(obj);
+        propNames.forEach((items) => {
+            let item = Object.getOwnPropertyDescriptor(obj, items);
+            if (item.value instanceof Object) {
+                item.value = this.deepClone(item.value);
+            }
+            Object.defineProperty(copy, items, item);
+        });
+        return copy;
+    }
 }
