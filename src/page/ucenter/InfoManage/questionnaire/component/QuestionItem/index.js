@@ -91,7 +91,9 @@ class QuestionItem extends React.Component {
 
         return (
             <div className={`question_item ${this.props.isEdit ? 'is_active' : ''}`}>
-                <div onClick={() => {
+                <div onClick={(e) => {
+                    e.stopPropagation();
+                    console.log(e);
                     handleEdit({
                         type: 'update',
                         id,

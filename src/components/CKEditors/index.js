@@ -1,25 +1,24 @@
 // import React, {useState} from 'react';
 import React from 'react';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
+import {withRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
 import CKEditor from 'ckeditor4-react';
 import './index.scss';
+
 let editorRef = React.createRef();
 
 
 class CKEditors extends React.Component {
 
-    componentDidMount() {
-        // var editor = CKEditor.instances.editor1;
-        // editor.focus();
-        setTimeout(() => {
-            console.log(editorRef.current.editor);
-        })
+    componentDidMount () {}
 
-    }
+    onInstanceReady = (ev) => {
+        // 初始化聚焦
+        // ev.editor.focus();
+    };
 
-    render() {
-        const { onChange } = this.props;
+    render () {
+        const {onChange} = this.props;
         return (
             <CKEditor
                 ref={editorRef}
@@ -31,10 +30,11 @@ class CKEditors extends React.Component {
                     // resize_minWidth: 200,
                     resize_minHeight: 300,
                     resize_maxWidth: 800,
-                    // startupFocus: true
+                    startupFocus: true // 配置初始化聚焦
                 }}
                 data={this.props.data}
                 onChange={onChange}
+                onInstanceReady={this.onInstanceReady}
             />
         );
     }
