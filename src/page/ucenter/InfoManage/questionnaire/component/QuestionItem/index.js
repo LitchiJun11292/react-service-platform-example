@@ -90,10 +90,10 @@ class QuestionItem extends React.Component {
         const {handleEdit, id} = this.props;
 
         return (
-            <div className={`question_item ${this.props.isEdit ? 'is_active' : ''}`}>
+            <div className={`question_item ${this.props.isEdit ? 'is_active' : ''}`} id={id}>
                 <div onClick={(e) => {
-                    e.stopPropagation();
-                    console.log(e);
+                    e.persist();
+                    // console.log(e.target.offsetTop);
                     handleEdit({
                         type: 'update',
                         id,
