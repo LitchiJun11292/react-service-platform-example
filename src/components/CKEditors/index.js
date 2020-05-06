@@ -16,24 +16,6 @@ class CKEditors extends React.Component {
     onInstanceReady = (ev) => {
         // 初始化聚焦
         ev.editor.focus();
-        // document.getElementsByClassName("ant-layout site-layout")[0].scroll(100,ev.editor.container.$.getBoundingClientRect().y);
-        let y = ev.editor.container.$.getBoundingClientRect().y;
-
-        function getElementTop (el) {
-            var actualTop = el.offsetTop;
-            var current = el.offsetParent;
-            while (current !== null) {
-                actualTop += current.offsetTop;
-                current = current.offsetParent
-            }
-            return actualTop;
-        }
-
-        let ss = getElementTop(ev.editor.container.$);
-
-        console.log(ss);
-        console.log(y);
-        document.getElementsByClassName("ant-layout site-layout")[0].scroll(100, 200);
     };
 
     render () {

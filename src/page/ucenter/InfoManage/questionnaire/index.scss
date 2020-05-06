@@ -65,7 +65,11 @@
 
 /*** 组卷 ***/
 .combine_paper {
-
+  //position: relative;
+  //.calcu_posite {
+  //  top: 10px;
+  //  right: 57px;
+  //}
   .ant-tabs-bar {
     margin: 0;
   }
@@ -80,7 +84,11 @@
     display: inline-block;
   }
 
-  .combine_main{
+  //.ant-tabs-nav-scroll{
+  //  text-align: right;
+  //}
+
+  .combine_main {
     margin: 0 auto;
     padding: 0 20px;
     margin-top: 18px;

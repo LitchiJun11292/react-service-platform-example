@@ -83,5 +83,15 @@ export default {
             Object.defineProperty(copy, items, item);
         });
         return copy;
+    },
+    // 计算当前元素卷去的高度
+    getElementTop (el) {
+        var actualTop = el.offsetTop;
+        var current = el.offsetParent;
+        while (current !== null) {
+            actualTop += current.offsetTop;
+            current = current.offsetParent
+        }
+        return actualTop;
     }
 }

@@ -12,6 +12,7 @@ import {
     VerticalAlignBottomOutlined,
     DeleteOutlined
 } from '@ant-design/icons';
+import base from '@/utils/base';
 import './index.scss';
 
 class QuestionItem extends React.Component {
@@ -86,6 +87,11 @@ class QuestionItem extends React.Component {
         this.props.handleInserOrder(this.props.inserOrder === id ? null : id);
     };
 
+    handleScroll = () => {
+        let actualTop = base.getElementTop(document.getElementById(this.props.id));
+        document.getElementsByClassName("ant-layout site-layout")[0].scroll(0, actualTop - 10);
+    };
+
     render () {
         const {handleEdit, id} = this.props;
 
@@ -93,12 +99,12 @@ class QuestionItem extends React.Component {
             <div className={`question_item ${this.props.isEdit ? 'is_active' : ''}`} id={id}>
                 <div onClick={(e) => {
                     e.persist();
-                    // console.log(e.target.offsetTop);
                     handleEdit({
                         type: 'update',
                         id,
                         val: !this.props.isEdit
                     });
+                    this.handleScroll();
                 }}>
                     {this.handleType()}
                     <Row className={`question_opa ${this.props.isEdit ? 'is_active' : ''}`}>
