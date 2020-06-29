@@ -25,17 +25,17 @@ class Questionnaire extends React.Component {
     formList = [
         {
             type: 'INPUT',
-            label: '问卷名称',
+            label: '',
             field: 'questionnaire_name',
             width: 130,
-            placeholder: '请输入问卷名称'
+            placeholder: '问卷名称'
         },
         {
             type: 'SELECT',
-            label: '发布状态',
+            label: '',
             field: 'post_status',
             width: 130,
-            placeholder: '请选择状态',
+            placeholder: '发布状态',
             list: [
                 {
                     id: '0',
@@ -57,10 +57,10 @@ class Questionnaire extends React.Component {
         },
         {
             type: 'DatePickers',
-            label: '创建时间',
+            label: '',
             field: ['start_time', 'end_time'],
             width: 130,
-            placeholder: ['日期选择', '日期选择']
+            placeholder: ['创建开始时间', '创建结束时间']
         }
     ];
 
